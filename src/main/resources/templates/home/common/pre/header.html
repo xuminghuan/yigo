@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="header">
-<link type="text/css" rel="stylesheet" href="/EasyBuy/statics/css/style.css"/>
+<link type="text/css" rel="stylesheet" href="/css/style.css"/>
 <div class="soubg">
   <div class="sou">
     <!--Begin 所在收货地区 Begin-->
@@ -80,18 +80,18 @@
         </span>
         <!--End 所在收货地区 End-->
         <span class="fr">
-        	<c:if test="${sessionScope.login==null}">
-            <span class="fl">你好，请<a href="${ctx}/Login?action=toLogin"  style="color:#ff4e00;">登录</a>&nbsp;<a href="${ctx}/Register?action=toRegister" style="color:#ff4e00;">免费注册</a>&nbsp;&nbsp;</span>
-          </c:if>
-          <c:if test="${sessionScope.login!=null}">
-            <span class="fl"><a href="${ctx}/user?opr=list&userId=${sessionScope.login.id}">${sessionScope.login.userName}</a>&nbsp;|&nbsp;<a href="${ctx}/admin/order?action=index&userId=${sessionScope.login.id}">我的订单</a>&nbsp;</span>
-          </c:if>
-           <c:if test="${sessionScope.login!=null && sessionScope.login.type==1}">
+        	<!--<div th:if test="${sessionScope.login==null}">-->
+            <span class="fl">你好，请<a href="toLogin"  style="color:#ff4e00;">登录</a>&nbsp;<a href="toRegister" style="color:#ff4e00;">免费注册</a>&nbsp;&nbsp;</span>
+         <!-- </div>-->
+        <!--  <div th:if test="${sessionScope.login!=null}">
+            <span class="fl"><a href="${ctx}/user?opr=list&userId=${sessionScope.login.id}">${sessionScope.login.userName}</a>&nbsp;|&nbsp;<a href="我的订单">我的订单</a>&nbsp;</span>
+          </div>
+           <div th:if test="${sessionScope.login!=null && sessionScope.login.type==1}">
             <span class="fl">|&nbsp;<a href="duct?opr=list&userId=${sessionScope.login.id}">后台管理</a>&nbsp;</span>
-          </c:if>
-           <c:if test="${sessionScope.login!=null}">
+          </div>
+           <div th:if test="${sessionScope.login!=null}">
              <span class="fl">|&nbsp;<a href="${ctx}/Login?action=loginOut" >注销</a></span>
-          </c:if> 
+          </div> -->
         </span>
         <!-- </span> -->
   </div>
@@ -104,7 +104,7 @@
     <div class="notice_c">
       <table border="0" align="center" cellspacing="0" cellpadding="0">
         <tr valign="top">
-          <td width="40"><img src="${ctx}/statics/images/suc.png"></td>
+          <td width="40"><img src="/images/suc.png"/></td>
           <td>
             <span style="color:#3e3e3e; font-size:18px; font-weight:bold;" id="showMessage">操作成功</span><br />
           </td>
@@ -114,3 +114,4 @@
   </div>
 </div>
 </div>
+</html>
