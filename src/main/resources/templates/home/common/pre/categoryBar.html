@@ -1,0 +1,48 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="categoryBar">
+<script type="text/javascript" src="${ctx}/statics/js/common/jquery-1.8.2.min.js"></script>
+<div class="menu_bg">
+	<div class="menu">
+    	<!--Begin 商品分类详情 Begin-->    
+    	<div class="nav">
+        	<div class="nav_t">全部商品分类</div>
+            <div class="leftNav">
+                <ul>    
+                <c:forEach var="pc1" items="${pcVoList}">
+                    <li>
+                    	<div class="fj">
+                        	<span class="n_img"><span></span><img src="${ctx}/statics/images/nav1.png" /></span>
+                            <span class="fl">${pc1.pCategory.name}</span>
+                        </div>
+                        <div class="zj">
+                            <div class="zj_l">
+                             <c:forEach items="${pc1.pcList}" var="pc2">
+                                <div class="zj_l_c">
+                                    <h2>${pc2.pCategory.name}</h2>
+                                    <c:forEach items="${pc2.pcList}" var="pc3">
+                                     <a href="${ctx}/Product?action=queryProuductList&categoryId=${pc3.pCategory.id}">${pc3.pCategory.name}</a>|
+                                    </c:forEach>
+                                </div>
+                                </c:forEach>
+                            </div>
+                            <div class="zj_r">
+                                <a href="#"><img src="${ctx}/statics/images/n_img1.jpg" width="236" height="200" /></a>
+                                <a href="#"><img src="${ctx}/statics/images/n_img2.jpg" width="236" height="200" /></a>
+                            </div>
+                        </div>
+                    </li>
+                      </c:forEach>                 	
+                </ul>            
+            </div>
+        </div>  
+        <!--End 商品分类详情 End-->                                                     
+    	<ul class="menu_r">                                                                                                                                               
+        	<li><a href="${ctx}/Home?action=index">首页</a></li>
+        	<c:forEach var="list" items="${pcVoList}">
+        	<li><a href="${ctx}/Product?action=queryProuductList&categoryId=${list.pCategory.id}">${list.pCategory.name}</a></li>
+        	</c:forEach>
+        </ul>
+        <div class="m_ad"></div>
+    </div>
+</div>
+</div>

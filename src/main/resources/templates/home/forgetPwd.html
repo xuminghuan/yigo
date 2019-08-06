@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+  <title>易买网</title>
+   <%@ include file="/common/pre/header.jsp" %>
+  </head>
+  
+  <body>
+  <form>
+            <table border="0" style="width:370px; font-size:14px; margin-top:30px;" cellspacing="0" cellpadding="0">
+              <tr height="50" valign="top">
+              	<td width="55">&nbsp;</td>
+                <td>
+                	<span class="fl" style="font-size:24px;">忘记密码</span>
+                </td>
+              </tr>
+              <tr height="70">
+                <td>用户名</td>
+                <td><input type="text" value="" class="l_user" name='loginName' id='loginName' value='${loginName}'/></td>
+              </tr>
+              <tr height="70">
+                <td>身份证</td>
+                <td><input type="text" value="" class="l_user" name='identityCode' id='identityCode'/></td>
+              </tr>
+              <tr height="70">
+                <td>邮&nbsp; &nbsp;箱</td>
+                <td><input type="text" value="" class="l_user" name='email' id='email'/></td>
+              </tr>
+              <tr height="70">
+                <td>新密 码</td>
+                <td><input type="password" value="" class="l_pwd" name='password' id='password' /></td>
+              </tr>
+             <tr height="70">
+                <td>确认密码</td>
+                <td><input type="password" value="" class="l_pwd" name='pwd' id='pwd' /></td>
+              </tr>
+              <tr height="60">
+              	<td>&nbsp;</td>
+                <td><input type="button" value="修改密码" class="log_btn" onclick="forget()" /></td>
+              </tr>
+            </table>
+            </form>
+            <script type="text/javascript">
+            function forget() {
+			    var loginName = $("input[name='loginName']").val();
+	 			var password = $("input[name='password']").val();
+	 			var email = $("input[name='email']").val();
+				 var pwd = $("input[name='pwd']").val();
+	 			var identityCode = $("input[name='identityCode']").val();
+	 			if(loginName==null || loginName==""){
+        		showMessage("用户名不能为空");
+       			 return;
+    			} if(loginName.length<2 || loginName>10){
+       				 showMessage("登录名不能小于两个字符或者大于十个字符.");
+       				 return
+  				  }
+  				  if(email==null || email==""){
+        			showMessage("邮箱不能为空");
+       			 return;
+    			}
+    			if(identityCode==null || identityCode==""){
+        			showMessage("身份证不能为空");
+       			 return;
+    			}
+    			if (password != pwd) {
+        		showMessage("两次输入的密码不一致1");
+        		return;
+    }
+    //判断密码是否为空
+     if (password =="") {
+        showMessage("密码不能为空");
+        return
+    }
+    //验证邮箱格式
+     if(email!=null && email!="" && !checkMail(email)){
+    	 showMessage("邮箱格式不正确");
+        return;
+    }if(identityCode!=null && identityCode!="" && !checkIdentityCode(identityCode)){
+    	 showMessage("身份证号格式不正确");
+        return;
+    }
+    var pramArray = $("form").serialize();
+    	$.ajax({
+    		"url":contextPath+"/ForGetPwd",
+    		"type":"post",
+    		"data":pramArray,
+    		"dataType":"JSON",
+    		"success":function(data) {
+				if (data.status == 1) {
+					location = contextPath + "/Login?action=toLogin";
+				} else {
+					showMessage(data.message);
+				}
+    		},
+    		"error":function(){
+    			alert("22E");
+    		}
+    	});
+}
+
+function checkMail(mail) {
+  var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  if (filter.test(mail)) 
+	  return true;
+  else{
+	 return false;}
+}
+function checkIdentityCode(identityCode) {
+	  var filter  = /^\w{18}$/;
+	  if (filter.test(identityCode)) 
+		  return true;
+	  else {
+		 return false;
+	  }
+}
+            </script>
+   <%@ include file="/common/pre/footer.jsp" %>
+  </body>
+</html>
